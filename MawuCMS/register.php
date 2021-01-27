@@ -8,6 +8,8 @@ if(Loged == TRUE)
 	exit;
 }
 
+$regerror = '';
+
 if(isset($_POST['Usuario']) && isset($_POST['Mail']) && isset($_POST['Contrasena']) && isset($_POST['RContrasena']))
 {   
 
@@ -255,6 +257,7 @@ img.emoji {
 <main>
 <section>
 	<div class="container pt-3">
+	
 		<div class="row">
 			<div class="col-md-4 offset-md-4">
 				<div class="toggle-login">

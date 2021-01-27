@@ -66,21 +66,20 @@ img.emoji {
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/me" class="nav-link"><?php echo $Lang['menu.index']; ?></a>
 			</li>
+			<li style="cursor:cell" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item nav-item dropdown active">
+				<a class="nav-link dropdown-toggle active" data-toggle="dropdown" id="navbar-dropdown-menu-link-59" aria-haspopup="true" aria-expanded="false"><?php echo $Lang['menu.comunidade']; ?></a>
+				    <div class="sub-menu dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-menu-link-59">
+						<a href="/team" class="dropdown-item"><?php echo $Lang['menu.team']; ?></a>
+						<a href="/gallery" class="dropdown-item"><?php echo $Lang['menu.gallery']; ?></a>
+						<a href="/famous" class="dropdown-item active"><?php echo $Lang['menu.famous']; ?></a>
+				    </div>
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/articles" class="nav-link"><?php echo $Lang['menu.articles']; ?></a>
 			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/gallery" class="nav-link"><?php echo $Lang['menu.gallery']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item active">
-				<a href="/famous" class="nav-link active"><?php echo $Lang['menu.famous']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/team" class="nav-link"><?php echo $Lang['menu.team']; ?></a>
-			</li>
-			<!--<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/shop" class="nav-link"><font color="dark orange"><?php echo $Lang['menu.shop']; ?></font></a>
-			</li>-->
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/support" class="nav-link"><?php echo $Lang['menu.support']; ?></a>
 			</li>
@@ -90,7 +89,7 @@ img.emoji {
 		
 		<?php $isadmin = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank >= ".$Holo['minhkr']."");
         while($isadm = mysqli_fetch_assoc($isadmin)){ ?><a href="<?php echo $Holo['url'] . '/' . $Holo['panel']; ?>" target="_blank" class="btn btn-warning"><font color="white"><center><i class="fas fa-cogs"></i></center></font></a><span style="cursor:default">    </span><?php } ?>
-		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
+		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>v2" class="btn btn-primary"><?php echo $Lang['menu.hotelv2']; ?></a><span style="cursor:default">    </span><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
 		
 			<div class="dropdown" style="cursor:cell">
 			
@@ -118,7 +117,7 @@ img.emoji {
 </div>
 
 <section>
-	<div class="container">
+	<div class="container pt-3">
 
 <?php if(maintenance == '1') { ?>
 	<div class="alert alert-danger" role="alert"><div id="p141"></div><br><center><?php echo $Lang['maintenance.text1']; ?> <b><?php echo $main['motivo']; ?></b>.<br><?php echo $Lang['maintenance.text2']; ?></center><br></div>
@@ -129,105 +128,152 @@ while($ocult = mysqli_fetch_array($oculte)){ ?>
 	<div style="cursor:default" class="alert alert-warning" role="alert"><b><?php echo $myrow['username']; ?></b>, <?php echo $Lang['famous.noshow']; ?></div>
 <?php } ?>
 	
-		<div class="card" style="cursor:default">
-			<div class="card-body p-md-5">
-				<div class="row">
-					<div class="col-md-4">
-						<h3><?php echo $Lang['famous.morediamonds']; ?></h3>
-						<br><br><br>
-						<div class="text-muted mb-4 mb-md-0"><?php echo $Lang['famous.diadesc']; ?></div>
-					</div>
-					<div class="col-md-6 offset-md-2">
-
-<?php
-$getDaimands = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '5' AND users.rank < 4 ORDER BY users_currency.amount DESC LIMIT 5");
-while($daimands = mysqli_fetch_array($getDaimands)) {
-
-echo '							<div class="mb-3 topic-124">
-								<div class="d-flex align-items-center">
-									<a href="/home/'.$daimands['username'].'" class="avatar pixel sm mr-2">
-										<img src="'.$Holo['avatar'] . $daimands['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=s">
-									</a>
-									<div class="w-100 d-md-flex align-items-center">
-										<h5 class="card-title mb-0"><a href="/home/'.$daimands['username'].'" data-toggle="tooltip" title="" data-original-title="'.$daimands['username'].'">'.$daimands['username'].'</a></h5>
-										<small class="text-muted ml-md-2 mt-1"> <img src="'.$Holo['url'].'/Mawu/image/icon/diamond.png">  <strong><font color="#0AA8EC">'.$daimands['amount'].' '.$Lang['famous.diamonds'].'</font></strong></small>
-									</div>
-								</div>
-							</div>';
-
-}
-?>
-
-					</div>
-				</div>
+	<div class="row">
+	
+			<div class="col-sm-4 col-lg-4">
+				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.morecredits']; ?></h3></div>
+				
+	<ul class="rank">
+<?php $users = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE rank < 3 ORDER BY credits DESC LIMIT 3");
+while($user = mysqli_fetch_array($users)){ ?>
+		<li class="card">
+			<div class="avatar pixel lg">
+				<a href="/home/<?php echo $user['username']; ?>"><img src="<?php echo $Holo['avatar'] . $user['look']; ?>&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
 			</div>
-		</div>
-		
-		<div class="card" style="cursor:default">
-			<div class="card-body p-md-5">
-				<div class="row">
-					<div class="col-md-4">
-						<h3><?php echo $Lang['famous.moreduckets']; ?></h3>
-						<br><br><br>
-						<div class="text-muted mb-4 mb-md-0"><?php echo $Lang['famous.duckdesc']; ?></div>
-					</div>
-					<div class="col-md-6 offset-md-2">
+			<div class="content">
+				<h6 class="mb-1">
+					<a class="text-inherit" href="/home/<?php echo $user['username']; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $user['username']; ?>"><?php echo $user['username']; ?></a>
+				</h6>
+				<div class="text-muted" style="cursor:default"><?php echo filtro(mb_strimwidth($user['motto'], 0, 26, "...")); ?></div>
+			</div>
+		</li>
+<?php } ?>
+	</ul>   
+            </div>
+			
+			<div class="col-sm-4 col-lg-4">
+				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.moreduckets']; ?></h3></div>
+				
+	<ul class="rank">
 
 <?php
-$getDuckets = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '0' AND users.rank < 4 ORDER BY users_currency.amount DESC LIMIT 5");
+$getDuckets = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '0' AND users.rank < 3 ORDER BY users_currency.amount DESC LIMIT 3");
 while($ducketsStats = mysqli_fetch_array($getDuckets)) {
 
-echo '							<div class="mb-3 topic-124">
-								<div class="d-flex align-items-center">
-									<a href="/home/'.$ducketsStats['username'].'" class="avatar pixel sm mr-2">
-										<img src="'.$Holo['avatar'] . $ducketsStats['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=s">
-									</a>
-									<div class="w-100 d-md-flex align-items-center">
-										<h5 class="card-title mb-0"><a href="/home/'.$ducketsStats['username'].'" data-toggle="tooltip" title="" data-original-title="'.$ducketsStats['username'].'">'.$ducketsStats['username'].'</a></h5>
-										<small class="text-muted ml-md-2 mt-1"> <img src="'.$Holo['url'].'/Mawu/image/icon/ducket.png">  <strong><font color="#822273">'.$ducketsStats['amount'].' '.$Lang['famous.duckets'].'</font></strong></small>
-									</div>
-								</div>
-							</div>';
-
-}
-?>
-
-					</div>
-				</div>
+echo '		<li class="card">
+			<div class="avatar pixel lg">
+				<a href="/home/'.$ducketsStats['username'].'"><img src="'.$Holo['avatar'] . $ducketsStats['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
 			</div>
-		</div>
+			<div class="content">
+				<h6 class="mb-1">
+					<a class="text-inherit" href="/home/'.$ducketsStats['username'].'" data-toggle="tooltip" title="" data-original-title="'.$ducketsStats['username'].'">'.$ducketsStats['username'].'</a>
+				</h6>
+				<div class="text-muted" style="cursor:default">'.filtro(mb_strimwidth($ducketsStats['motto'], 0, 26, "...")).'</div>
+			</div>
+		</li>'; } ?>
 		
-		<div class="card" style="cursor:default">
-			<div class="card-body p-md-5">
-				<div class="row">
-					<div class="col-md-4">
-						<h3><?php echo $Lang['famous.morecredits']; ?></h3>
-						<br><br><br>
-						<div class="text-muted mb-4 mb-md-0"><?php echo $Lang['famous.creditdesc']; ?></div>
-					</div>
-					<div class="col-md-6 offset-md-2">
+	</ul>   
+            </div>
+			
+			<div class="col-sm-4 col-lg-4">
+				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.morediamonds']; ?></h3></div>
+				
+	<ul class="rank">
 
-<?php $users = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE rank < 4 ORDER BY credits DESC LIMIT 5");
-while($user = mysqli_fetch_array($users)){ ?>
-							<div class="mb-3 topic-124">
-								<div class="d-flex align-items-center">
-									<a href="/home/<?php echo $user['username']; ?>" class="avatar pixel sm mr-2">
-										<img src="<?php echo $Holo['avatar'] . $user['look']; ?>&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=s">
-									</a>
-									<div class="w-100 d-md-flex align-items-center">
-										<h5 class="card-title mb-0"><a href="/home/<?php echo $user['username']; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $user['username']; ?>"><?php echo $user['username']; ?></a></h5>
-										<small class="text-muted ml-md-2 mt-1"> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/credit.png">  <strong><font color="#FF9030"><?php echo $user['credits']; ?> <?php echo $Lang['famous.credits']; ?></font></strong></small>
-									</div>
-								</div>
-							</div>
-<?php } ?>
+<?php
+$getDaimands = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '5' AND users.rank < 3 ORDER BY users_currency.amount DESC LIMIT 3");
+while($daimands = mysqli_fetch_array($getDaimands)) {
 
-					</div>
-				</div>
+echo '		<li class="card">
+			<div class="avatar pixel lg">
+				<a href="/home/'.$daimands['username'].'"><img src="'.$Holo['avatar'] . $daimands['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
 			</div>
-		</div>
+			<div class="content">
+				<h6 class="mb-1">
+					<a class="text-inherit" href="/home/'.$daimands['username'].'" data-toggle="tooltip" title="" data-original-title="'.$daimands['username'].'">'.$daimands['username'].'</a>
+				</h6>
+				<div class="text-muted" style="cursor:default">'.filtro(mb_strimwidth($daimands['motto'], 0, 26, "...")).'</div>
+			</div>
+		</li>'; } ?>
 		
+	</ul>   
+            </div>
+			
+			<div class="col-sm-4 col-lg-4">
+				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.moreachievs']; ?></h3></div>
+				
+	<ul class="rank">
+
+<?php
+$getAchievements = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.achievement_score > 0 AND users.rank < 3 ORDER BY users_settings.achievement_score DESC LIMIT 3");
+while($achievements = mysqli_fetch_array($getAchievements)) {
+
+echo '		<li class="card">
+			<div class="avatar pixel lg">
+				<a href="/home/'.$achievements['username'].'"><img src="'.$Holo['avatar'] . $achievements['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
 			</div>
+			<div class="content">
+				<h6 class="mb-1">
+					<a class="text-inherit" href="/home/'.$achievements['username'].'" data-toggle="tooltip" title="" data-original-title="'.$achievements['username'].'">'.$achievements['username'].'</a>
+				</h6>
+				<div class="text-muted" style="cursor:default">'.filtro(mb_strimwidth($achievements['motto'], 0, 26, "...")).'</div>
+			</div>
+		</li>'; } ?>
+		
+	</ul>   
+            </div>
+			
+			<div class="col-sm-4 col-lg-4">
+				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.morerespect']; ?></h3></div>
+				
+	<ul class="rank">
+
+<?php
+$getRespects = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.respects_received > 0 AND users.rank < 3 ORDER BY users_settings.respects_received DESC LIMIT 3");
+while($respects = mysqli_fetch_array($getRespects)) {
+
+echo '		<li class="card">
+			<div class="avatar pixel lg">
+				<a href="/home/'.$respects['username'].'"><img src="'.$Holo['avatar'] . $respects['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
+			</div>
+			<div class="content">
+				<h6 class="mb-1">
+					<a class="text-inherit" href="/home/'.$respects['username'].'" data-toggle="tooltip" title="" data-original-title="'.$respects['username'].'">'.$respects['username'].'</a>
+				</h6>
+				<div class="text-muted" style="cursor:default">'.filtro(mb_strimwidth($respects['motto'], 0, 26, "...")).'</div>
+			</div>
+		</li>'; } ?>
+		
+	</ul>   
+            </div>
+			
+			<div class="col-sm-4 col-lg-4">
+				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.moreonlinet']; ?></h3></div>
+				
+	<ul class="rank">
+
+<?php
+$getOnline = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.online_time > 0 AND users.rank < 3 ORDER BY users_settings.online_time DESC LIMIT 3");
+while($onlinetime = mysqli_fetch_array($getOnline)) {
+
+echo '		<li class="card">
+			<div class="avatar pixel lg">
+				<a href="/home/'.$onlinetime['username'].'"><img src="'.$Holo['avatar'] . $onlinetime['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
+			</div>
+			<div class="content">
+				<h6 class="mb-1">
+					<a class="text-inherit" href="/home/'.$onlinetime['username'].'" data-toggle="tooltip" title="" data-original-title="'.$onlinetime['username'].'">'.$onlinetime['username'].'</a>
+				</h6>
+				<div class="text-muted" style="cursor:default">'.filtro(mb_strimwidth($onlinetime['motto'], 0, 26, "...")).'</div>
+			</div>
+		</li>'; } ?>
+		
+	</ul>   
+            </div>
+			
+	</div>
+		
+	</div>
 </section>
 
 	</main>

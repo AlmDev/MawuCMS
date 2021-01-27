@@ -141,6 +141,7 @@ img.emoji {
 <main>
 <section>
 	<div class="container pt-3">
+	
 		<div class="row">
 			<div class="col-md-4 offset-md-4">
 				<div class="toggle-login">
@@ -157,6 +158,7 @@ img.emoji {
 			<p class="login-password">
 				<label for="user_pass"><?php echo $Lang['login.password']; ?></label>
 				<input type="password" name="Password" id="user_pass" class="input" size="20" required>
+				<small class="form-text text-muted"><a href="/forgot">Esqueceu a sua senha?</a></small>
 			</p>
 			<p class="login-submit">
 			<?php if($Holo['recaptcha_on'] == "true") { ?>

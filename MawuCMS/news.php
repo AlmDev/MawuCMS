@@ -47,8 +47,8 @@ if(isset($_POST['resultado']))
 {
 	$urlresultado = filtro($_POST['urlresultado']);
 
-    mysqli_query(connect::cxn_mysqli(),"INSERT INTO cms_news_form SET user_id = '". $myrow['id'] ."', news_id = '". $noticia8 ."', urlresultado = '". $urlresultado ."', date = '". time() . "'");
-    $aok = 'Formulaire envoyé avec succès.';
+    mysqli_query(connect::cxn_mysqli(),"INSERT INTO cms_news_form SET newsid = '". $noticia ."', user_id = '". $myrow['id'] ."', urlresultado = '". $urlresultado ."', date = '". time() . "'");
+    $aok = '<div class="alert alert-success" role="alert">Você enviou um Formulário com sucesso.</div>';
 }
 ?>
 <!DOCTYPE html>
@@ -131,21 +131,20 @@ function goBack() {
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/me" class="nav-link"><?php echo $Lang['menu.index']; ?></a>
 			</li>
+			<li style="cursor:cell" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown-menu-link-59" aria-haspopup="true" aria-expanded="false"><?php echo $Lang['menu.comunidade']; ?></a>
+				    <div class="sub-menu dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-menu-link-59">
+						<a href="/team" class="dropdown-item"><?php echo $Lang['menu.team']; ?></a>
+						<a href="/gallery" class="dropdown-item"><?php echo $Lang['menu.gallery']; ?></a>
+						<a href="/famous" class="dropdown-item"><?php echo $Lang['menu.famous']; ?></a>
+				    </div>
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item active">
 				<a href="/articles" class="nav-link active"><?php echo $Lang['menu.articles']; ?></a>
 			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/gallery" class="nav-link"><?php echo $Lang['menu.gallery']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/famous" class="nav-link"><?php echo $Lang['menu.famous']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/team" class="nav-link"><?php echo $Lang['menu.team']; ?></a>
-			</li>
-			<!--<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/shop" class="nav-link"><font color="dark orange"><?php echo $Lang['menu.shop']; ?></font></a>
-			</li>-->
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/support" class="nav-link"><?php echo $Lang['menu.support']; ?></a>
 			</li>
@@ -155,7 +154,7 @@ function goBack() {
 		<a onclick="goBack()" class="btn btn-danger"><font color="white"><?php echo $Lang['menu.back']; ?></font></a><span style="cursor:default">    </span>
 		<?php $isadmin = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank >= ".$Holo['minhkr']."");
         while($isadm = mysqli_fetch_assoc($isadmin)){ ?><a href="<?php echo $Holo['url'] . '/' . $Holo['panel']; ?>" target="_blank" class="btn btn-warning"><font color="white"><center><i class="fas fa-cogs"></i></center></font></a><span style="cursor:default">    </span><?php } ?>
-		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
+		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>v2" class="btn btn-primary"><?php echo $Lang['menu.hotelv2']; ?></a><span style="cursor:default">    </span><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
 		
 			<div class="dropdown" style="cursor:cell">
 			
@@ -288,7 +287,20 @@ while($newscategory = mysqli_fetch_array($newscategorys)){
 			
 				<div class="reading-content">
 					<div style="cursor:default" class="article-text">
-						<p><?php echo $noticia5; ?></p>
+						<p><small><?php echo $noticia5; ?></small></p>
+						<?php if($columna['active_form'] == "1") { ?>
+						<p><small><hr class="my-4">
+							<?php if($aok !== NULL) { echo $aok; } ?>
+								<form id="loginform" method="POST">
+									<p class="login-username">
+										<input type="text" id="urlresultado" name="urlresultado" placeholder="Formulário para <?php echo $noticia3; ?>" class="input" size="20" required>
+									</p>
+									<p class="login-submit">
+										<input type="submit" name="resultado" class="button button-primary" value="Enviar Formulário">
+									</p>
+								</form>
+						</small></p>
+						<?php } ?>
 					</div>
 					
 					<div class="d-flex align-items-center mt-4">
@@ -470,7 +482,7 @@ if(isset($_POST['addcomment']))
     { 
         $checkspam = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM cms_news_comment WHERE author = '". $myrow['username'] ."' AND newsid = '".$id_noticia."'");
 		
-		if(mysqli_num_rows($checkspam) >= 3 && $myrow['rank'] < $Holo['minrank'])
+		if(mysqli_num_rows($checkspam) >= 1)
 		{
 			$commentmsg = "<div class='alert alert-danger' role='alert'>".$Lang['news.alertc6']."</div>";
 		} 

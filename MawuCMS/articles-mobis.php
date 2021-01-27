@@ -81,21 +81,20 @@ function goBack() {
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/me" class="nav-link"><?php echo $Lang['menu.index']; ?></a>
 			</li>
+			<li style="cursor:cell" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown-menu-link-59" aria-haspopup="true" aria-expanded="false"><?php echo $Lang['menu.comunidade']; ?></a>
+				    <div class="sub-menu dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-menu-link-59">
+						<a href="/team" class="dropdown-item"><?php echo $Lang['menu.team']; ?></a>
+						<a href="/gallery" class="dropdown-item"><?php echo $Lang['menu.gallery']; ?></a>
+						<a href="/famous" class="dropdown-item"><?php echo $Lang['menu.famous']; ?></a>
+				    </div>
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item active">
 				<a href="/articles" class="nav-link active"><?php echo $Lang['menu.articles']; ?></a>
 			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/gallery" class="nav-link"><?php echo $Lang['menu.gallery']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/famous" class="nav-link"><?php echo $Lang['menu.famous']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/team" class="nav-link"><?php echo $Lang['menu.team']; ?></a>
-			</li>
-			<!--<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/shop" class="nav-link"><font color="dark orange"><?php echo $Lang['menu.shop']; ?></font></a>
-			</li>-->
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/support" class="nav-link"><?php echo $Lang['menu.support']; ?></a>
 			</li>
@@ -105,7 +104,7 @@ function goBack() {
 		
 		<?php $isadmin = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank >= ".$Holo['minhkr']."");
         while($isadm = mysqli_fetch_assoc($isadmin)){ ?><a href="<?php echo $Holo['url'] . '/' . $Holo['panel']; ?>" target="_blank" class="btn btn-warning"><font color="white"><center><i class="fas fa-cogs"></i></center></font></a><span style="cursor:default">    </span><?php } ?>
-		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
+		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>v2" class="btn btn-primary"><?php echo $Lang['menu.hotelv2']; ?></a><span style="cursor:default">    </span><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
 		
 			<div class="dropdown" style="cursor:cell">
 			

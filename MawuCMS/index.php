@@ -124,7 +124,9 @@ img.emoji {
 <div class="jumbotron jumbotron-fluid hero">
 	<div class="container" style="cursor:default">
 		<h1 class="my-3"><font size="4"><?php echo $chosen; ?></font></h1>
-		<span><b><?php echo Onlines(); ?></b> <?php echo $Lang['menu.onlines']; ?></span>
+<?php if(maintenance == '0') { ?>
+		<span style="cursor:default"><b><?php echo Onlines(); ?></b> <?php echo $Lang['menu.onlines']; ?></span>
+<?php } ?>
 	</div>
 </div>
 
@@ -227,9 +229,10 @@ while($newsbadge = mysqli_fetch_array($newsbadges)){
 </div>
 <?php } ?>
 
-    <div class="alert alert-secondary" role="alert" style="cursor:default"><?php echo $Lang['index.alertnews']; ?></div>
 		</div>
 		
+		 <div class="alert alert-secondary" role="alert" style="cursor:default"><?php echo $Lang['index.alertnews']; ?></div>
+		 
 	</div>
 </section>
 
@@ -255,10 +258,10 @@ while($last = mysqli_fetch_array($lasts)){
 					</div>
 				</div>
 		</div>
+		</div>
 		
 		<div class="alert alert-secondary" style="cursor:default" role="alert"><?php echo $Lang['index.aboutlastusr']; ?></div>
-
-		</div>
+		
 	</div>
 </section>
 
@@ -298,9 +301,9 @@ $roominfo = mysqli_fetch_assoc($roominfo = mysqli_query(connect::cxn_mysqli(),"S
 						</div>
 <?php } ?>
 
-    <div class="alert alert-secondary" role="alert" style="cursor:default"><?php echo $Lang['index.alertphotos']; ?></div>
-
 			</div>
+			
+			<div class="alert alert-secondary" role="alert" style="cursor:default"><?php echo $Lang['index.alertphotos']; ?></div>
 
 		</div>
 	</div>

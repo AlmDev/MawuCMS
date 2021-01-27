@@ -65,21 +65,20 @@ img.emoji {
 			<li class="menu-item menu-item-type-post_type_archive nav-item active">
 				<a href="/me" class="nav-link active"><?php echo $Lang['menu.index']; ?></a>
 			</li>
+			<li style="cursor:cell" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown-menu-link-59" aria-haspopup="true" aria-expanded="false"><?php echo $Lang['menu.comunidade']; ?></a>
+				    <div class="sub-menu dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-menu-link-59">
+						<a href="/team" class="dropdown-item"><?php echo $Lang['menu.team']; ?></a>
+						<a href="/gallery" class="dropdown-item"><?php echo $Lang['menu.gallery']; ?></a>
+						<a href="/famous" class="dropdown-item"><?php echo $Lang['menu.famous']; ?></a>
+				    </div>
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/articles" class="nav-link"><?php echo $Lang['menu.articles']; ?></a>
 			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/gallery" class="nav-link"><?php echo $Lang['menu.gallery']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/famous" class="nav-link"><?php echo $Lang['menu.famous']; ?></a>
-			</li>
-			<li class="menu-item menu-item-type-post_type_archive nav-item">
-				<a href="/team" class="nav-link"><?php echo $Lang['menu.team']; ?></a>
-			</li>
-			<!--<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/shop" class="nav-link"><font color="dark orange"><?php echo $Lang['menu.shop']; ?></font></a>
-			</li>-->
+			</li>
 			<li class="menu-item menu-item-type-post_type_archive nav-item">
 				<a href="/support" class="nav-link"><?php echo $Lang['menu.support']; ?></a>
 			</li>
@@ -89,7 +88,7 @@ img.emoji {
 		
 		<?php $isadmin = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank >= ".$Holo['minhkr']."");
         while($isadm = mysqli_fetch_assoc($isadmin)){ ?><a href="<?php echo $Holo['url'] . '/' . $Holo['panel']; ?>" target="_blank" class="btn btn-warning"><font color="white"><center><i class="fas fa-cogs"></i></center></font></a><span style="cursor:default">    </span><?php } ?>
-		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
+		<?php if(maintenance == '0') { ?><a href="<?php echo $Holo['client_url']; ?>v2" class="btn btn-primary"><?php echo $Lang['menu.hotelv2']; ?></a><span style="cursor:default">    </span><a href="<?php echo $Holo['client_url']; ?>" class="btn btn-success"><?php echo $Lang['menu.hotel']; ?></a><span style="cursor:default">    </span><?php } ?>
 		
 			<div class="dropdown" style="cursor:cell">
 			
@@ -122,7 +121,7 @@ img.emoji {
 
 <section>
 	<div class="container">
-	
+
 <?php if(maintenance == '1') { ?>
 	<div class="alert alert-danger" role="alert"><div id="p141"></div><br><center><?php echo $Lang['maintenance.text1']; ?> <b><?php echo $main['motivo']; ?></b>.<br><?php echo $Lang['maintenance.text2']; ?></center><br></div>
 <?php } ?>
@@ -335,107 +334,6 @@ while($users_settings = mysqli_fetch_array($users_setting)){ ?>
 
 			</div>
 
-		</div>
-	</div>
-</section>
-
-<section>
-	<div class="container pt-3">
-		<div class="row">
-			<div class="col-sm-6 col-lg-4">
-				<div class="section-title">
-					<h3 style="cursor:default"><?php echo $Lang['me.achievements']; ?></h3>
-				</div>
-
-				
-<ul class="rank">
-
-<?php $getScore = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users.rank < 5 ORDER BY users_settings.achievement_score DESC LIMIT 3");
-while($scoreStats = mysqli_fetch_array($getScore)) {
-
-echo '<li class="card">
-			<div class="avatar pixel lg">
-				<a href="/home/'.$scoreStats['username'].'"><img src="'.$Holo['avatar'] . $scoreStats['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
-			</div>
-			<div class="content">
-				<h6 class="mb-1">
-					<a class="text-inherit" href="/home/'.$scoreStats['username'].'" data-toggle="tooltip" title="" data-original-title="'.$scoreStats['username'].'">'.$scoreStats['username'].'</a>
-				</h6>
-				<div class="text-muted" style="cursor:default">
-					<strong>'.$scoreStats['achievement_score'].'</strong> '.$Lang['me.achievepoints'].'
-				</div>
-			</div>
-		</li>';
-
-
-}
-?>
-		
-</ul>   
-            </div>
-	
-			<div class="col-sm-6 col-lg-4">
-				<div class="section-title">
-					<h3 style="cursor:default"><?php echo $Lang['me.respects']; ?></h3>
-				</div>
-
-				<div class="list">
-
-<?php $getRespects = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users.rank < 5 ORDER BY users_settings.respects_received DESC LIMIT 2");
-while($respectStats = mysqli_fetch_array($getRespects)) {
-		
-echo '<div class="card featured-user">
-	<div class="card-body">
-		<div class="avatar pixel lg">
-			<a href="/home/'.$respectStats['username'].'"><img src="'.$Holo['avatar'] . $respectStats['look'].'&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="Wulles"></a>
-		</div>
-
-		<div class="content w-100">
-			<h5><a class="text-inherit" href="/home/'.$respectStats['username'].'" data-toggle="tooltip" title="" data-original-title="'.$respectStats['username'].'">'.$respectStats['username'].'</a></h5>
-			<div class="text-muted" style="cursor:default"><p><b>'.$respectStats['respects_received'].'</b> '.$Lang['me.respectreceived'].'<br><b>'.$respectStats['respects_given'].'</b> '.$Lang['me.respectgiven'].'</p></div>
-		</div>
-	</div>
-</div>';
-
-}
-?>
-
-				</div>
-				
-			</div>
-			
-			<div class="col-sm-6 col-lg-4">
-				<div class="section-title">
-					<h3 style="cursor:default"><?php echo $Lang['me.lastphoto']; ?></h3>
-					<strong><a href="/gallery"><?php echo $Lang['me.seephotos']; ?></a></strong>
-				</div>
-				
-<?php $photos = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM camera_web ORDER BY id DESC LIMIT 1");
-while($photo = mysqli_fetch_array($photos)){
-	
-$authorinfo = mysqli_fetch_assoc($authorinfo = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."'"));	
-$roominfo = mysqli_fetch_assoc($roominfo = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM rooms WHERE id = '".$photo['room_id']."'"));	
-?>
-	<div class="card gallery gallery-224">
-		<a href="/photos/<?php echo $photo['id']; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $Lang['me.photoby']; ?> <?php echo $authorinfo['username']; ?>">
-		<div class="cover">
-				<img src="<?php echo $photo['url']; ?>" alt="">
-		</div>
-		</a>
-		<div class="card-body py-3">
-			<div class="w-100">
-				<div class="card-text text-muted d-flex justify-content-end">
-					<div class="avatar pixel sm mr-2">
-						<img src="<?php echo $Holo['avatar'] . $authorinfo['look']; ?>s&action=std&direction=2&head_direction=2&img_format=png&gesture=std&headonly=0&size=s" alt="<?php echo $authorinfo['username']; ?>">
-					</div>
-						<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo $authorinfo['username']; ?></a>
-				</div>
-			</div>
-		</div>
-	</div>
-<?php } ?>
-
-			</div>
 		</div>
 	</div>
 </section>
