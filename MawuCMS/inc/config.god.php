@@ -4,7 +4,8 @@
 date_default_timezone_set('Europe/Paris'); # Time zone
 ini_set('display_errors', 0);
 
-// Hashs
+// Hashs salts (If players are already registered, changing the salts will invalidate their password !)
+# For more secure, change it each salt for random string (between 15 and 25)
 define('PASSWORD_SALT', 'ChAnGEItFoRRaNdOm');
 define('PASSWORD_SALT2', '2ChAnGEItFoRRaNdOm2');
 define('PASSSTAFF_SALT', '3ChAnGEItFoRRaNdOm3');
@@ -13,7 +14,7 @@ define('PASSSTAFF_SALT2', '4ChAnGEItFoRRaNdOm4');
 // Mail
 define('SMTP_HOST', 'smtp.gmail.com'); # SMTP Host(Example: smtp.gmail.com for google gmail)
 define('SMTP_PORT', '587'); # SMTP Port
-define('SMTP_ENCRYPTION', ''); # SMTP Encryption(null/ssl/tls)
+define('SMTP_ENCRYPTION', 'tls'); # SMTP Encryption(null/ssl/tls) (Use tls on port 587 for gmail)
 define('SMTP_USERNAME', '@gmail.com'); # SMTP Your mail
 define('SMTP_PASSWORD', ''); # SMTP Password
 	  
@@ -49,13 +50,19 @@ $Holo = array(
 'discordwid'    =>     '',
 
 // Security
-'minrank'       =>     '5',
-'maxrank'       =>     '10',
-'minhkr'        =>     '6',
+'minrank'       =>     '5',                                            # Rank min staff
+'minhkr'        =>     '5',                                            # Rank min for access in hk: Login
+'maxrank'       =>     '8',                                            # Rank max staff
+	
+'hkr_animator'  =>     '5',                                            # Rank min for access in hk: News, news edit, badge create
+'hkr_moderator' =>     '6',                                            # Rank min for access in hk: Bans
+'hkr_manager'   =>     '7',                                            # Rank min for access in hk: Maintenance, rank, pass create
+'hkr_owner'     =>     '8',                                            # Rank min for access in hk: Owner first pass create
+	
 'recaptcha_on'  =>     'false',
-'recaptcha'     =>     '');
+'recaptcha'     =>     ''); # ReCaptcha Key
 
-// Language
+// CMS page Language
 $Lang = array(
 
 // Logo
