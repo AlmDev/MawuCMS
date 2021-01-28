@@ -42,6 +42,7 @@ img.emoji {
 <link rel='stylesheet' id='selectize-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/selectize.css?ver=0.12.6' type='text/css' media='all' />
 <link rel='stylesheet' id='style-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/style.css?ver=1.1' type='text/css' media='all' />
 <link rel='stylesheet' id='theme-styles-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/style.css?ver=5.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-styles-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/wulles.css' type='text/css' media='all' />
 <script type='text/javascript' src='<?php echo $Holo['url']; ?>/Mawu/js/jquery.js?ver=1.12.4-wp'></script>
 <script type='text/javascript' src='<?php echo $Holo['url']; ?>/Mawu/js/jquery-migrate.min.js?ver=1.4.1'></script>
 <script type='text/javascript' src='<?php echo $Holo['url']; ?>/Mawu/js/simple-likes-public.js?ver=0.5'></script>
@@ -112,7 +113,18 @@ img.emoji {
 	
 <div class="jumbotron jumbotron-fluid hero">
 	<div class="container">
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank = '1' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
 		<h1 class="my-3" style="cursor:default"><img src="<?php echo $Holo['avatar'] . $myrow['look']; ?>&headonly=0&direction=2&head_direction=3&size=s" /> <font size="5"><?php echo $myrow['username']; ?></font></h1>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank = '2' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+		<h1 class="my-3" style="cursor:default"><img src="<?php echo $Holo['avatar'] . $myrow['look']; ?>&headonly=0&direction=2&head_direction=3&size=s" /> <font size="5"><?php echo $myrow['username']; ?> <a class="navbar-brand"><span class="vip">VIP</span></a></font></h1>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$myrow['id']."' AND rank > '".$Holo['minrank']."' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+		<h1 class="my-3" style="cursor:default"><img src="<?php echo $Holo['avatar'] . $myrow['look']; ?>&headonly=0&direction=2&head_direction=3&size=s" /> <font size="5"><?php echo $myrow['username']; ?> <a class="navbar-brand"><span class="staff">STAFF</span></a></font></h1>
+<?php } ?>
 <?php if(maintenance == '0') { ?>
 		<span style="cursor:default"><b><?php echo Onlines(); ?></b> <?php echo $Lang['menu.onlines']; ?></span>
 <?php } ?>
@@ -124,6 +136,11 @@ img.emoji {
 
 <?php if(maintenance == '1') { ?>
 	<div class="alert alert-danger" role="alert"><div id="p141"></div><br><center><?php echo $Lang['maintenance.text1']; ?> <b><?php echo $main['motivo']; ?></b>.<br><?php echo $Lang['maintenance.text2']; ?></center><br></div>
+<?php } ?>
+
+<?php $friendrequest = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM messenger_friendrequests WHERE user_to_id = '".$myrow['id']."' LIMIT 1");
+while($request = mysqli_fetch_array($friendrequest)){ ?>
+	<div class="alert alert-warning" role="alert"><center><b>Wulles</b>, você tem <b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM messenger_friendrequests WHERE user_to_id = '".$myrow['id']."'")) ?></b> pedidos de amizade no Hotel esperando por você, entre no <?php echo $Holo['name']; ?> e responda.</center></div>
 <?php } ?>
 
 		<div class="row">
@@ -322,8 +339,8 @@ while($users_currencys = mysqli_fetch_array($users_currency)){ ?>
 <?php $users_setting = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users_settings WHERE user_id = '".$myrow['id']."' LIMIT 1");
 while($users_settings = mysqli_fetch_array($users_setting)){ ?>	
 								<font color="#8a8e8e"><b><?php echo $users_settings['respects_received']; ?></b></font> <?php echo $Lang['me.stats4']; ?> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/respect.png"><br>
-								<font color="#6e4b01"><b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM rooms WHERE owner_id = '".$myrow['id']."'")) ?></b></font> <?php echo $Lang['me.stats5']; ?> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/room.png"><br>
-								<font color="#fd6561"><b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users_badges WHERE user_id = '".$myrow['id']."'")) ?></b></font> <?php echo $Lang['me.stats6']; ?> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/habbotv.png"><br>
+								<font color="#6e4b01"><b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM rooms WHERE owner_id = '".$myrow['id']."'")) ?></b></font> <?php echo $Lang['me.stats6']; ?> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/room.png"><br>
+								<font color="#fd6561"><b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users_badges WHERE user_id = '".$myrow['id']."'")) ?></b></font> <?php echo $Lang['me.stats5']; ?> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/habbotv.png"><br>
 								<font color="#fed062"><b><?php echo $users_settings['achievement_score']; ?></b></font> <?php echo $Lang['me.stats7']; ?> <img src="<?php echo $Holo['url']; ?>/Mawu/image/icon/star.png"><br>
 <?php } ?>
 								</center></div>
@@ -361,10 +378,10 @@ while($last = mysqli_fetch_array($lasts)){
 					</div>
 				</div>
 		</div>
+		</div>
 		
 		<div class="alert alert-secondary" style="cursor:default" role="alert"><?php echo $Lang['index.aboutlastusr']; ?></div>
-
-		</div>
+		
 	</div>
 </section>
 
