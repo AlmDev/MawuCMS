@@ -2052,7 +2052,6 @@ ul.rank li {
 	margin-bottom: 1rem;
 	position: relative;
 	counter-increment: number;
-
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -2075,20 +2074,34 @@ ul.rank li:before {
 }
 
 ul.rank li:nth-child(1):before {
-	background-color: #ffc107;
+	background-color: #FFCB29;
 	color: #fff;
 }
 
 ul.rank li:nth-child(2):before {
-	background-color: #A9C1CB;
+	background-color: #8BC43F;
 	color: #fff;
 }
 
 ul.rank li:nth-child(3):before {
-	background-color: #D3774D;
+	background-color: #92278F;
 	color: #fff;
 }
 
+ul.rank li:nth-child(4):before {
+	background-color: #F02B7D;
+	color: #fff;
+}
+
+ul.rank li:nth-child(5):before {
+	background-color: #E53935;
+	color: #fff;
+}
+
+ul.rank li:nth-child(6):before {
+	background-color: #00B2B2;
+	color: #fff;
+}
 
 ul.rank li .content {
 	width: calc(100% - 56px - 1rem);

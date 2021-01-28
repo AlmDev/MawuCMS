@@ -41,8 +41,8 @@ img.emoji {
 <link rel='stylesheet' id='font-awesome-css'  href='https://use.fontawesome.com/releases/v5.12.1/css/all.css?ver=5.12.1' type='text/css' media='all' />
 <link rel='stylesheet' id='swiper-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/swiper.min.css?ver=5.3.1' type='text/css' media='all' />
 <link rel='stylesheet' id='selectize-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/selectize.css?ver=0.12.6' type='text/css' media='all' />
-<link rel='stylesheet' id='style-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/style.css?ver=1.1' type='text/css' media='all' />
-<link rel='stylesheet' id='theme-styles-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/style.css?ver=5.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/style.css?ver=1.2' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-styles-css'  href='<?php echo $Holo['url']; ?>/Mawu/css/style.css?ver=5.3.3' type='text/css' media='all' />
 <script type='text/javascript' src='<?php echo $Holo['url']; ?>/Mawu/js/jquery.js?ver=1.12.4-wp'></script>
 <script type='text/javascript' src='<?php echo $Holo['url']; ?>/Mawu/js/jquery-migrate.min.js?ver=1.4.1'></script>
 <script type='text/javascript' src='<?php echo $Holo['url']; ?>/Mawu/js/simple-likes-public.js?ver=0.5'></script>
@@ -128,13 +128,13 @@ while($ocult = mysqli_fetch_array($oculte)){ ?>
 	<div style="cursor:default" class="alert alert-warning" role="alert"><b><?php echo $myrow['username']; ?></b>, <?php echo $Lang['famous.noshow']; ?></div>
 <?php } ?>
 	
-	<div class="row">
+	<div class="row" style="cursor:default">
 	
 			<div class="col-sm-4 col-lg-4">
 				<div class="section-title"><h3 style="cursor:default"><?php echo $Lang['famous.morecredits']; ?></h3></div>
 				
 	<ul class="rank">
-<?php $users = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE rank < 3 ORDER BY credits DESC LIMIT 3");
+<?php $users = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE rank < 3 ORDER BY credits DESC LIMIT 6");
 while($user = mysqli_fetch_array($users)){ ?>
 		<li class="card">
 			<div class="avatar pixel lg">
@@ -142,7 +142,7 @@ while($user = mysqli_fetch_array($users)){ ?>
 			</div>
 			<div class="content">
 				<h6 class="mb-1">
-					<a class="text-inherit" href="/home/<?php echo $user['username']; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $user['username']; ?>"><?php echo $user['username']; ?></a>
+					<a class="text-inherit" href="/home/<?php echo $user['username']; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $user['username']; ?>"><?php echo $user['username']; ?></a> <?php if($user['rank'] == '1') { echo ''; } else { echo '<a class="navbar-brand"><span class="vip">VIP</span></a>'; } ?>
 				</h6>
 				<div class="text-muted" style="cursor:default"><?php echo filtro(mb_strimwidth($user['motto'], 0, 26, "...")); ?></div>
 			</div>
@@ -157,7 +157,7 @@ while($user = mysqli_fetch_array($users)){ ?>
 	<ul class="rank">
 
 <?php
-$getDuckets = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '0' AND users.rank < 3 ORDER BY users_currency.amount DESC LIMIT 3");
+$getDuckets = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '0' AND users.rank < 3 ORDER BY users_currency.amount DESC LIMIT 6");
 while($ducketsStats = mysqli_fetch_array($getDuckets)) {
 
 echo '		<li class="card">
@@ -181,7 +181,7 @@ echo '		<li class="card">
 	<ul class="rank">
 
 <?php
-$getDaimands = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '5' AND users.rank < 3 ORDER BY users_currency.amount DESC LIMIT 3");
+$getDaimands = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_currency ON users.id=users_currency.user_id WHERE users_currency.type = '5' AND users.rank < 3 ORDER BY users_currency.amount DESC LIMIT 6");
 while($daimands = mysqli_fetch_array($getDaimands)) {
 
 echo '		<li class="card">
@@ -205,7 +205,7 @@ echo '		<li class="card">
 	<ul class="rank">
 
 <?php
-$getAchievements = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.achievement_score > 0 AND users.rank < 3 ORDER BY users_settings.achievement_score DESC LIMIT 3");
+$getAchievements = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.achievement_score > 0 AND users.rank < 3 ORDER BY users_settings.achievement_score DESC LIMIT 6");
 while($achievements = mysqli_fetch_array($getAchievements)) {
 
 echo '		<li class="card">
@@ -229,7 +229,7 @@ echo '		<li class="card">
 	<ul class="rank">
 
 <?php
-$getRespects = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.respects_received > 0 AND users.rank < 3 ORDER BY users_settings.respects_received DESC LIMIT 3");
+$getRespects = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.respects_received > 0 AND users.rank < 3 ORDER BY users_settings.respects_received DESC LIMIT 6");
 while($respects = mysqli_fetch_array($getRespects)) {
 
 echo '		<li class="card">
@@ -253,7 +253,7 @@ echo '		<li class="card">
 	<ul class="rank">
 
 <?php
-$getOnline = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.online_time > 0 AND users.rank < 3 ORDER BY users_settings.online_time DESC LIMIT 3");
+$getOnline = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users INNER JOIN users_settings ON users.id=users_settings.user_id WHERE users_settings.online_time > 0 AND users.rank < 3 ORDER BY users_settings.online_time DESC LIMIT 6");
 while($onlinetime = mysqli_fetch_array($getOnline)) {
 
 echo '		<li class="card">
