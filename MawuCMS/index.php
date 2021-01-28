@@ -236,7 +236,7 @@ while($newsbadge = mysqli_fetch_array($newsbadges)){
 				<div class="card">
 					<div class="card-body last-users">
 						<div class="row">
-<?php $lasts = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users ORDER BY id DESC LIMIT 15");
+<?php $lasts = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE visible = '1' ORDER BY id DESC LIMIT 15");
 while($last = mysqli_fetch_array($lasts)){	
 ?>
 									<div class="col">

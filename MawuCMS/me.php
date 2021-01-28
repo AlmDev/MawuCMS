@@ -140,7 +140,7 @@ while($tag = mysqli_fetch_array($tags)){ ?>
 
 <?php $friendrequest = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM messenger_friendrequests WHERE user_to_id = '".$myrow['id']."' LIMIT 1");
 while($request = mysqli_fetch_array($friendrequest)){ ?>
-	<div class="alert alert-warning" role="alert"><center><b>Wulles</b>, você tem <b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM messenger_friendrequests WHERE user_to_id = '".$myrow['id']."'")) ?></b> pedidos de amizade no Hotel esperando por você, entre no <?php echo $Holo['name']; ?> e responda.</center></div>
+	<div class="alert alert-warning" role="alert"><center><b><?php echo $myrow['username']; ?></b>, <?php echo $Lang['me.friendalert1']; ?> <b><?php echo mysqli_num_rows(mysqli_query(connect::cxn_mysqli(),"SELECT * FROM messenger_friendrequests WHERE user_to_id = '".$myrow['id']."'")) ?></b> <?php echo $Lang['me.friendalert2']; ?></center></div>
 <?php } ?>
 
 		<div class="row">
@@ -365,7 +365,7 @@ while($users_settings = mysqli_fetch_array($users_setting)){ ?>
 				<div class="card">
 					<div class="card-body last-users">
 						<div class="row">
-<?php $lasts = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users ORDER BY id DESC LIMIT 15");
+<?php $lasts = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE visible = '1' ORDER BY id DESC LIMIT 15");
 while($last = mysqli_fetch_array($lasts)){	
 ?>
 									<div class="col">
