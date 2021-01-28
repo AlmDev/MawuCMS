@@ -179,13 +179,24 @@ $roominfo = mysqli_fetch_assoc($roominfo = mysqli_query(connect::cxn_mysqli(),"S
 				<small style="cursor:default" class="text-muted mt-auto"><?php echo GetLast($photo['timestamp']); ?></small>
 			</div>
 		</div>
-		<div class="card-body py-3">
+		<div class="card-body py-3" style="cursor:default">
 			<div class="w-100">
 				<div class="card-text text-muted d-flex justify-content-end">
 					<div class="avatar pixel sm mr-2">
 						<img src="<?php echo $Holo['avatar'] . $authorinfo['look']; ?>s&action=std&direction=2&head_direction=2&img_format=png&gesture=std&headonly=0&size=s" alt="<?php echo $authorinfo['username']; ?>">
 					</div>
-						<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo $authorinfo['username']; ?></a>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."' AND rank = '1' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo filtro(mb_strimwidth($authorinfo['username'], 0, 10, "...")); ?></a></a>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."' AND rank = '2' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo filtro(mb_strimwidth($authorinfo['username'], 0, 10, "...")); ?></a> <a class="navbar-brand"><span class="vip">VIP</span></a>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."' AND rank > '".$Holo['minrank']."' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo filtro(mb_strimwidth($authorinfo['username'], 0, 10, "...")); ?></a> <a class="navbar-brand"><span class="staff">STAFF</span></a>
+<?php } ?>
 						<span style="cursor:default" class="ml-auto text-muted"><i class="fas fa-calendar-alt ml-3 mr-1"></i> <?php echo GetLast($photo['timestamp']); ?></span>
 				</div>
 				<?PHP if($myrow['rank'] >= $Holo['minhkr']) { ?>
@@ -212,7 +223,7 @@ $roominfo = mysqli_fetch_assoc($roominfo = mysqli_query(connect::cxn_mysqli(),"S
 		<div class="cover">
 						<img src="<?php echo $photo['url']; ?>" alt="">
 			<div class="infos">
-				<h5 class="mb-3"><?php echo $Lang['gallery.photoby']; ?> <?php echo $authorinfo['username']; ?></h5>
+				<h5 class="mb-3"><?php echo $Lang['gallery.photoby']; ?> <?php echo $authorinfo['username']; ?> </h5>
 				<div class="text-muted mb-3"></div>
 				<small style="cursor:default" class="text-muted mt-auto"><?php echo GetLast($photo['timestamp']); ?></small>
 			</div>
@@ -220,11 +231,23 @@ $roominfo = mysqli_fetch_assoc($roominfo = mysqli_query(connect::cxn_mysqli(),"S
 		</a>
 		<div class="card-body py-3">
 			<div class="w-100">
-				<div class="card-text text-muted d-flex justify-content-end">
+				<div class="card-text text-muted d-flex justify-content-end" style="cursor:default">
 					<div class="avatar pixel sm mr-2">
 						<img src="<?php echo $Holo['avatar'] . $authorinfo['look']; ?>s&action=std&direction=2&head_direction=2&img_format=png&gesture=std&headonly=0&size=s" alt="<?php echo $authorinfo['username']; ?>">
 					</div>
-						<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo $authorinfo['username']; ?></a>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."' AND rank = '1' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo filtro(mb_strimwidth($authorinfo['username'], 0, 11, "...")); ?></a></a>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."' AND rank = '2' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo filtro(mb_strimwidth($authorinfo['username'], 0, 11, "...")); ?></a> <a class="navbar-brand"><span class="vip">VIP</span></a>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$photo['user_id']."' AND rank > '".$Holo['minrank']."' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<a href="/home/<?php echo $authorinfo['username']; ?>" data-toggle="tooltip" title="<?php echo $authorinfo['username']; ?>"><?php echo filtro(mb_strimwidth($authorinfo['username'], 0, 11, "...")); ?></a> <a class="navbar-brand"><span class="staff">STAFF</span></a>
+<?php } ?>
+						
 						<span style="cursor:default" class="ml-auto text-muted"><i class="fas fa-calendar-alt ml-3 mr-1"></i> <?php echo GetLast($photo['timestamp']); ?></span>
 				</div>
 				<?PHP if($myrow['rank'] >= $Holo['minhkr']) { ?>

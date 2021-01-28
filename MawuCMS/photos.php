@@ -163,9 +163,20 @@ function goBack() {
 						<img src="<?php echo $Holo['avatar'] . $user_n['look']; ?>&amp;action=std&amp;direction=2&amp;head_direction=2&amp;img_format=png&amp;gesture=std&amp;headonly=0&amp;size=b" alt="">
 					</a>
 
-					<div class="w-100 d-flex flex-column flex-md-row">
+					<div class="w-100 d-flex flex-column flex-md-row" style="cursor:default">
 						<div class="w-100">
-							<h4 class="mb-1"><a href="/home/<?php echo $user_n['username']; ?>"><font color="black"><?php echo $user_n['username']; ?></font></a></h4>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$columna['user_id']."' AND rank = '1' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<h4 class="mb-1"><a href="/home/<?php echo $user_n['username']; ?>"><font color="black"><?php echo $user_n['username']; ?></font></a></h4>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$columna['user_id']."' AND rank = '2' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<h4 class="mb-1"><a href="/home/<?php echo $user_n['username']; ?>"><font color="black"><?php echo $user_n['username']; ?></font></a> <a class="navbar-brand"><span class="vip">VIP</span></a></h4>
+<?php } ?>
+<?php $tags = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM users WHERE id = '".$columna['user_id']."' AND rank > '".$Holo['minrank']."' ORDER BY id DESC LIMIT 1");
+while($tag = mysqli_fetch_array($tags)){ ?>
+	        		<h4 class="mb-1"><a href="/home/<?php echo $user_n['username']; ?>"><font color="black"><?php echo $user_n['username']; ?></font></a> <a class="navbar-brand"><span class="staff">STAFF</span></a></h4>
+<?php } ?>
 							<div style="cursor:default" class="text-muted"><?php echo $Lang['gallery.timeah']; ?> <?php echo GetLast($photo5); ?></strong></div>
 						</div>
 					</div>
