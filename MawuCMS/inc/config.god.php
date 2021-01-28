@@ -4,8 +4,7 @@
 date_default_timezone_set('Europe/Paris'); # Time zone
 ini_set('display_errors', 0);
 
-// Hashs salts (If players are already registered, changing the salts will invalidate their password !)
-# For more secure, change it each salt for random string (between 15 and 25)
+// Hashs
 define('PASSWORD_SALT', 'ChAnGEItFoRRaNdOm');
 define('PASSWORD_SALT2', '2ChAnGEItFoRRaNdOm2');
 define('PASSSTAFF_SALT', '3ChAnGEItFoRRaNdOm3');
@@ -15,7 +14,7 @@ define('PASSSTAFF_SALT2', '4ChAnGEItFoRRaNdOm4');
 define('SMTP_HOST', 'smtp.gmail.com'); # SMTP Host(Example: smtp.gmail.com for google gmail)
 define('SMTP_PORT', '587'); # SMTP Port
 define('SMTP_ENCRYPTION', 'tls'); # SMTP Encryption(null/ssl/tls) (Use tls on port 587 for gmail)
-define('SMTP_USERNAME', '@gmail.com'); # SMTP Your mail
+define('SMTP_USERNAME', ''); # SMTP Your mail
 define('SMTP_PASSWORD', ''); # SMTP Password
 	  
 // Configuration
@@ -31,14 +30,15 @@ $Holo = array(
 'client_url'    =>     'http://localhost/hotel',
 'cameraurl'     =>     'http://localhost/WulezSWF/camera/',
 'thumbsurl'     =>     'http://localhost/WulezSWF/camera/thumbnails/',
-'avatar'        =>     'http://habbo.com.br/habbo-imaging/avatarimage?figure=',
 'url_badges'    =>     'http://localhost/WulezSWF/c_images/album1584/',
+'avatar'        =>     'http://habbo.com.br/habbo-imaging/avatarimage?figure=',
+'app_url'       =>     '',
 
 // Register
-'mision'        =>     'MawuCMS',
-'monedas'       =>     '500',
-'duckets'       =>     '160',
-'diamants'      =>     '5',
+'mision'        =>     '',
+'monedas'       =>     '0',
+'duckets'       =>     '0',
+'diamants'      =>     '0',
 'gender'        =>     'M',
 'look'          =>     'ch-215-82.hr-100-42.lg-270-1408.ha-1003-64.hd-180-1370',
 
@@ -50,19 +50,17 @@ $Holo = array(
 'discordwid'    =>     '',
 
 // Security
-'minrank'       =>     '5',                                            # Rank min staff
-'minhkr'        =>     '5',                                            # Rank min for access in hk: Login
-'maxrank'       =>     '8',                                            # Rank max staff
-	
-'hkr_animator'  =>     '5',                                            # Rank min for access in hk: News, news edit, badge create
-'hkr_moderator' =>     '6',                                            # Rank min for access in hk: Bans
-'hkr_manager'   =>     '7',                                            # Rank min for access in hk: Maintenance, rank, pass create
-'hkr_owner'     =>     '8',                                            # Rank min for access in hk: Owner first pass create
-	
+'minrank'       =>     '6',  # Rank min staff
+'minhkr'        =>     '7',  # Rank min for access in hk: Login
+'maxrank'       =>     '10', # Rank max staff
+'hkr_animator'  =>     '7',  # Rank min for access in hk: News, news edit, badge create
+'hkr_moderator' =>     '6',  # Rank min for access in hk: Bans
+'hkr_manager'   =>     '8',  # Rank min for access in hk: Maintenance, rank, pass create
+'hkr_owner'     =>     '10',
 'recaptcha_on'  =>     'false',
-'recaptcha'     =>     ''); # ReCaptcha Key
+'recaptcha'     =>     '');
 
-// CMS page Language
+// Language
 $Lang = array(
 
 // Logo
@@ -73,13 +71,15 @@ $Lang = array(
 'menu.login'         =>     'Entrar',
 'menu.loginbutton'   =>     'Entrar na sua Conta',
 'menu.register'      =>     'Registrar',
+'menu.comunidade'    =>     'Comunidade',
 'menu.articles'      =>     'Notícias',
 'menu.gallery'       =>     'Galeria',
 'menu.famous'        =>     'Famosos',
 'menu.team'          =>     'Equipe',
 'menu.shop'          =>     'Loja',
 'menu.support'       =>     'Suporte',
-'menu.hotel'         =>     'Entrar no Hotel',
+'menu.hotel'         =>     'Hotel',
+'menu.hotelv2'       =>     'Beta',
 'menu.myprofile'     =>     'Ver meu Perfil',
 'menu.settings'      =>     'Configurações',
 'menu.logout'        =>     'Desconectar',
@@ -174,6 +174,12 @@ $Lang = array(
 'register.error6'    =>     'Algo de errado está acontecendo com seu nome, tente outro nome.',
 'register.error7'    =>     'Você não é um robô? Verifique sua identidade.',
 
+// Hotel
+'hotel.titulo'       =>     'Hotel',
+'hotel.calm'         =>     'Você está quase lá em...',
+'hotel.download'     =>     'Faça o Download de nosso aplicativo e jogue a versão Flash sem problemas.',
+'hotel.onlyplay'     =>     'Ou use um navegador com Flash.',
+
 // Me
 'me.titulo'          =>     'Início',
 'me.rooms'           =>     'Quartos destaques',
@@ -204,6 +210,8 @@ $Lang = array(
 'me.stats5'          =>     'Emblemas',
 'me.stats6'          =>     'Quartos',
 'me.stats7'          =>     'Conquistas',
+'me.friendalert1'    =>     'Você tem',
+'me.friendalert2'    =>     'pedidos de amizade no Hotel esperando por você, entre no '.$Holo['name'].' e responda.',
 
 // News
 'news.titulo'        =>     'Notícias',
@@ -224,13 +232,19 @@ $Lang = array(
 'news.makecomment'   =>     'Escreva um comentário',
 'news.alertcant'     =>     'Não é mais possível fazer comentários nesta notícia',
 'news.alertlogin'    =>     'Você precisa <a href="/login">entrar</a> para publicar um comentário.',
+'news.alertlogin2'   =>     'Você precisa <a href="/login">entrar</a> para enviar um formulário.',
 'news.confirm'       =>     'Comentar',
+'news.alertform1'    =>     '<b>Sucesso!</b> Você enviou um formulário.',
+'news.alertform2'    =>     'Você não pode enviar esse formulário.',
+'news.alertform3'    =>     '<b>EITA!</b> Você está tentando fazer o que não pode, você só pode enviar <b>1</b> formulário Por notícia.',
 'news.alertc1'       =>     '<b>Sucesso!</b> Você deixou o seu comentário.',
 'news.alertc2'       =>     'Eita, alguma coisa deu errado, que tal tentar novamente?...',
 'news.alertc3'       =>     'Você não pode deixar um comentário aqui...',
 'news.alertc4'       =>     'Alguma coisa deu errado com o seu <i>código de segurança</i>, tente reentrar em nosso Hotel.',
 'news.alertc5'       =>     'Mantenha o seu comentário sem palavras inadequadas, e prometeremos não excluir sua conta ou algo semelhante a isso como punição, haha.',
-'news.alertc6'       =>     '<b>EITA!</b> Você está tentando fazer o que não pode, você só pode deixar <b>3</b> comentários Por notícia.',
+'news.alertc6'       =>     '<b>EITA!</b> Você está tentando fazer o que não pode, você só pode deixar <b>1</b> comentários Por notícia.',
+'news.formsend'      =>     'Enviar Formulário',
+'news.formfor'       =>     'Formulário para',
 
 // Gallery
 'gallery.titulo'     =>     'Galeria',
@@ -254,15 +268,15 @@ $Lang = array(
 // Famous
 'famous.titulo'      =>     'Famosos',
 'famous.noshow'      =>     'você não vai aparecer nesta página porque você configurou sua conta para ficar <b>Oculta</b>!',
-'famous.morediamonds'=>     'Com mais Diamantes',
-'famous.diadesc'     =>     'Essa categoria mostra apenas as <b>Cinco</b> pessoas mais ricos de <font color="#0AA8EC">Diamantes</font> dentro do '.$Holo['name'].' Hotel.',
+'famous.morediamonds'=>     'Com mais <font color="#0AA8EC">Diamantes</font>',
 'famous.diamonds'    =>     'Diamantes',
-'famous.moreduckets' =>     'Com mais Duckets',
-'famous.duckdesc'    =>     'Essa categoria mostra apenas as <b>Cinco</b> pessoas mais ricos de <font color="#822273">Duckets</font> dentro do '.$Holo['name'].' Hotel.',
+'famous.moreduckets' =>     'Com mais <font color="#822273">Duckets</font>',
 'famous.duckets'     =>     'Duckets',
-'famous.morecredits' =>     'Com mais Moedas',
-'famous.creditdesc'  =>     'Essa categoria mostra apenas as <b>Cinco</b> pessoas mais ricos de <font color="#FF9030">Moedas</font> dentro do '.$Holo['name'].' Hotel.',
+'famous.morecredits' =>     'Com mais <font color="#FF9030">Moedas</font>',
 'famous.credits'     =>     'Moedas',
+'famous.moreachievs' =>     'Com mais <font color="#8F5E01">Conquistas</font>',
+'famous.morerespect' =>     'Com mais <font color="#A80000">Respeitos</font>',
+'famous.moreonlinet' =>     'Com mais tempo <font color="#069202">Online</font>',
 
 // Team
 'team.titulo'        =>     'Equipe',
