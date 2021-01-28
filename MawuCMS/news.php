@@ -44,11 +44,35 @@ else
 }
 
 if(isset($_POST['resultado']))
-{
-	$urlresultado = filtro($_POST['urlresultado']);
+{ 
+	$urlresultado = filtrolow($_POST['urlresultado']);
+    if(!empty($urlresultado))
+    { 
+        $checkspam = mysqli_query(connect::cxn_mysqli(),"SELECT * FROM cms_news_form WHERE user_id = '". $myrow['id'] ."' AND newsid = '". $noticia ."'");
+		
+		if(mysqli_num_rows($checkspam) >= 1)
+		{
+			$aok = "<div class='alert alert-danger' role='alert'>".$Lang['news.alertform3']."</div>";
+		} 
+		else 
+		{
+        $query_AddForm = mysqli_query(connect::cxn_mysqli(),"INSERT INTO cms_news_form SET newsid = '". $noticia ."', user_id = '". $myrow['id'] ."', urlresultado = '". $urlresultado ."', date = '". time() . "'");
+  
+        if($query_AddForm) 
+        { 
+            $aok = "<div class='alert alert-success' role='alert'>".$Lang['news.alertform1']."</div>";
+        } 
+        else 
+        { 
+            $aok = "<div class='alert alert-danger' role='alert'>".$Lang['news.alertc2']."</div>";
 
-    mysqli_query(connect::cxn_mysqli(),"INSERT INTO cms_news_form SET newsid = '". $noticia ."', user_id = '". $myrow['id'] ."', urlresultado = '". $urlresultado ."', date = '". time() . "'");
-    $aok = '<div class="alert alert-success" role="alert">Você enviou um Formulário com sucesso.</div>';
+        } 
+		}
+    } 
+    else 
+    { 
+        $aok = "<div class='alert alert-danger' role='alert'>".$Lang['news.alertform2']."</div>";
+    }	
 }
 ?>
 <!DOCTYPE html>
@@ -288,19 +312,31 @@ while($newscategory = mysqli_fetch_array($newscategorys)){
 				<div class="reading-content">
 					<div style="cursor:default" class="article-text">
 						<p><small><?php echo $noticia5; ?></small></p>
+<?php if(Loged == TRUE) { ?>
 						<?php if($columna['active_form'] == "1") { ?>
 						<p><small><hr class="my-4">
 							<?php if($aok !== NULL) { echo $aok; } ?>
 								<form id="loginform" method="POST">
 									<p class="login-username">
-										<input type="text" id="urlresultado" name="urlresultado" placeholder="Formulário para <?php echo $noticia3; ?>" class="input" size="20" required>
+										<input type="text" id="urlresultado" name="urlresultado" MAXLENGTH="280" placeholder="<?php echo $Lang['news.formfor']; ?> <?php echo $noticia3; ?>" class="input" size="20" required>
 									</p>
 									<p class="login-submit">
-										<input type="submit" name="resultado" class="button button-primary" value="Enviar Formulário">
+										<input type="submit" name="resultado" class="button button-primary" value="<?php echo $Lang['news.formsend']; ?>">
 									</p>
 								</form>
 						</small></p>
 						<?php } ?>
+<?php } ?>
+<?php if(Loged == FALSE) { ?>
+						<?php if($columna['active_form'] == "1") { ?>
+						<p><small><hr class="my-4"><div style="cursor:default" class="card">
+								<div class="card-body text-center text-muted">
+									<strong><?php echo $Lang['news.alertlogin2']; ?></strong>
+								</div>
+							</div>
+						</small></p>
+						<?php } ?>
+<?php } ?>
 					</div>
 					
 					<div class="d-flex align-items-center mt-4">
